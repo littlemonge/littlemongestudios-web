@@ -1,0 +1,11 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "littlemongestudios-web",
+  "compatibility_date": "2026-09-21",
+  // Pure static assets — no Worker script, no server, no adapter.
+  // This keeps `wrangler deploy` from trying to auto-configure Astro
+  // as a Cloudflare Worker on every build.
+  "assets": {
+    "directory": "dist"
+  }
+}
