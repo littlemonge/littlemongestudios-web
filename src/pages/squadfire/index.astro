@@ -20,8 +20,11 @@ const project = projects.find((p) => p.slug === 'squadfire');
 
   <h2>Descarga</h2>
   {project.storeUrl ? (
-    <a class="button" href={project.storeUrl}>Ver en Google Play</a>
+    <a href={project.storeUrl}><img src="/images/google-play-badge-es.png" alt="Disponible en Google Play" style="height: 54px;" /></a>
   ) : (
-    <span class="button" aria-disabled="true">Próximamente en Google Play</span>
+    <div class="badge-wrap">
+      <img src="/images/google-play-badge-es.png" alt="Disponible en Google Play (próximamente)" />
+      <span class="badge-label">Próximamente</span>
+    </div>
   )}
 </BaseLayout>

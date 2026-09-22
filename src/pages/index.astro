@@ -1,23 +1,46 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
 import { projects } from '../data/projects.js';
+import heroImage from '../assets/hero-sunrise.png';
+
+const squadfire = projects.find((p) => p.slug === 'squadfire');
 ---
 <BaseLayout
   title="Home"
   description="Little Monge Studios — estudio independiente de desarrollo de videojuegos y aplicaciones."
+  bleed
 >
-  <h1>Little Monge Studios</h1>
-  <p class="muted">
-    Somos un estudio independiente que desarrolla videojuegos y aplicaciones
-    móviles. Este es el punto de partida para conocer nuestros proyectos.
-  </p>
-
-  <h2>Proyectos</h2>
-  {projects.map((p) => (
-    <div class="card">
-      <h3>{p.name}</h3>
-      <p class="muted">{p.tagline}</p>
-      <a class="button" href={`/${p.slug}/`}>Ver {p.name}</a>
+  <div class="hero">
+    <Image src={heroImage} alt="" width={1024} height={1024} quality={70} />
+    <div class="hero-content">
+      <h1>Little Monge<br />Studios</h1>
+      <p>Estudio independiente de videojuegos y aplicaciones. Mundos pequeños, hechos con cuidado.</p>
     </div>
-  ))}
+    <svg class="hero-wave" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0,42 C240,92 480,4 720,32 C960,60 1200,10 1440,46 L1440,90 L0,90 Z" fill="#faf7f0"></path>
+    </svg>
+  </div>
+
+  <div class="projects-section">
+    <div class="inner">
+      <div class="eyebrow">Proyectos</div>
+      <div class="section-title">Lo que estamos creando</div>
+
+      <div class="squadfire-card">
+        <div class="sf-copy">
+          <div class="sf-title">Squadfire</div>
+          <p>{squadfire.tagline}. Un juego pensado para partidas cortas y mucho ritmo.</p>
+          <div class="sf-actions">
+            <div class="badge-wrap">
+              <img src="/images/google-play-badge-es.png" alt="Disponible en Google Play (próximamente)" />
+              <span class="badge-label">Próximamente</span>
+            </div>
+            <a class="sf-link" href={`/${squadfire.slug}/`}>Ver Squadfire →</a>
+          </div>
+        </div>
+        <div class="sf-art-placeholder">Hueco para captura o arte del juego cuando esté listo</div>
+      </div>
+    </div>
+  </div>
 </BaseLayout>
