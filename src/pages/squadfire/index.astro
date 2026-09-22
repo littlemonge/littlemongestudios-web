@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { projects } from '../../data/projects.js';
+
+const project = projects.find((p) => p.slug === 'squadfire');
+---
+<BaseLayout title="Squadfire" description="Squadfire, un videojuego de Little Monge Studios">
+  <h1>Squadfire</h1>
+  <p class="muted">{project.tagline}</p>
+
+  <p>
+    <!-- TODO: sustituir por una descripción real de qué es Squadfire
+         (género, mecánicas principales, para quién es) cuando la tengáis definida. -->
+    Squadfire es el próximo juego de Little Monge Studios, actualmente en desarrollo.
+    Aquí iremos añadiendo más detalles a medida que avance el proyecto.
+  </p>
+
+  <h2>Capturas</h2>
+  <p class="muted">Próximamente — añadiremos capturas de pantalla cuando estén disponibles.</p>
+
+  <h2>Descarga</h2>
+  {project.storeUrl ? (
+    <a class="button" href={project.storeUrl}>Ver en Google Play</a>
+  ) : (
+    <span class="button" aria-disabled="true">Próximamente en Google Play</span>
+  )}
+</BaseLayout>

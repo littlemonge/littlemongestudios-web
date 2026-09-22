@@ -1,0 +1,20 @@
+---
+import { projects } from '../data/projects.js';
+const year = new Date().getFullYear();
+const legalProjects = projects.filter((p) => p.legalPages);
+---
+<footer class="site-footer">
+  <div>© {year} Little Monge Studios</div>
+  <div>
+    <a href="mailto:team@littlemongestudios.com">team@littlemongestudios.com</a>
+  </div>
+  <div class="footer-links">
+    {legalProjects.map((p) => (
+      <>
+        <a href={`/${p.slug}/privacy/`}>{p.name} — Privacy Policy</a>
+        <a href={`/${p.slug}/delete-account/`}>{p.name} — Delete my account</a>
+      </>
+    ))}
+  </div>
+  <div class="social-placeholder">Síguenos pronto — redes sociales en camino</div>
+</footer>

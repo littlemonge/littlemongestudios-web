@@ -1,0 +1,11 @@
+---
+import { projects } from '../data/projects.js';
+---
+<header class="site-header">
+  <a class="wordmark" href="/">Little Monge Studios</a>
+  <nav>
+    <a href="/">Home</a>
+    {projects.map((p) => <a href={`/${p.slug}/`}>{p.name}</a>)}
+    <a href="/contact/">Contact</a>
+  </nav>
+</header>

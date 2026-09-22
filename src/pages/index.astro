@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { projects } from '../data/projects.js';
+---
+<BaseLayout
+  title="Home"
+  description="Little Monge Studios — estudio independiente de desarrollo de videojuegos y aplicaciones."
+>
+  <h1>Little Monge Studios</h1>
+  <p class="muted">
+    Somos un estudio independiente que desarrolla videojuegos y aplicaciones
+    móviles. Este es el punto de partida para conocer nuestros proyectos.
+  </p>
+
+  <h2>Proyectos</h2>
+  {projects.map((p) => (
+    <div class="card">
+      <h3>{p.name}</h3>
+      <p class="muted">{p.tagline}</p>
+      <a class="button" href={`/${p.slug}/`}>Ver {p.name}</a>
+    </div>
+  ))}
+</BaseLayout>

@@ -1,0 +1,41 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const subject = encodeURIComponent('Squadfire — Solicitud de borrado de cuenta');
+const body = encodeURIComponent(
+  'Hola,\n\nQuiero solicitar el borrado de mi cuenta de Squadfire y los datos asociados.\n\nEmail de la cuenta: \nNombre de usuario (si aplica): \n\nGracias.'
+);
+const mailtoHref = `mailto:team@littlemongestudios.com?subject=${subject}&body=${body}`;
+---
+<BaseLayout
+  title="Delete my account — Squadfire"
+  description="Cómo solicitar el borrado de tu cuenta y datos en Squadfire"
+>
+  <h1>Delete my account — Squadfire</h1>
+  <p>
+    Puedes solicitar el borrado de tu cuenta de Squadfire y de los datos
+    asociados a ella en cualquier momento. Así es como hacerlo:
+  </p>
+
+  <h2>Cómo solicitarlo</h2>
+  <ol>
+    <li>
+      Envíanos un email a
+      <a href="mailto:team@littlemongestudios.com">team@littlemongestudios.com</a>
+      desde la dirección asociada a tu cuenta, indicando que quieres eliminar
+      tu cuenta.
+    </li>
+    <li>Verificaremos la solicitud y confirmaremos el borrado por email.</li>
+  </ol>
+
+  <a class="button" href={mailtoHref}>Solicitar borrado de mi cuenta</a>
+
+  <h2>Qué se elimina</h2>
+  <p class="muted">
+    <!-- TODO: confirmar y detallar exactamente qué datos se borran
+         (cuenta, progreso de juego, estadísticas, etc.), qué se conserva
+         si algo por obligación legal, y el plazo de procesamiento. -->
+    Pendiente de confirmar el detalle exacto de qué datos se eliminan y en
+    qué plazo.
+  </p>
+</BaseLayout>
