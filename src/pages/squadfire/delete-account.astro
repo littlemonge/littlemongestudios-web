@@ -13,29 +13,36 @@ const mailtoHref = `mailto:team@littlemongestudios.com?subject=${subject}&body=$
 >
   <h1>Delete my account — Squadfire</h1>
   <p>
-    Puedes solicitar el borrado de tu cuenta de Squadfire y de los datos
-    asociados a ella en cualquier momento. Así es como hacerlo:
+    Puedes eliminar tu cuenta de Squadfire y todos los datos asociados
+    a ella en cualquier momento, de dos formas:
   </p>
 
-  <h2>Cómo solicitarlo</h2>
+  <h2>Desde la app (recomendado)</h2>
+  <p>
+    Ve a <strong>Perfil → Ajustes → Zona de peligro → Eliminar mi
+    cuenta</strong>. El borrado es inmediato y no se puede deshacer.
+  </p>
+
+  <h2>Si has perdido el acceso a la app</h2>
   <ol>
     <li>
       Envíanos un email a
       <a href="mailto:team@littlemongestudios.com">team@littlemongestudios.com</a>
-      desde la dirección asociada a tu cuenta, indicando que quieres eliminar
-      tu cuenta.
+      desde la dirección asociada a tu cuenta (o indicando tu nombre de
+      usuario), pidiendo que eliminemos tu cuenta.
     </li>
-    <li>Verificaremos la solicitud y confirmaremos el borrado por email.</li>
+    <li>Verificaremos la solicitud y confirmaremos el borrado por email, en un plazo de hasta 30 días.</li>
   </ol>
 
-  <a class="button" href={mailtoHref}>Solicitar borrado de mi cuenta</a>
+  <a class="button" href={mailtoHref}>Solicitar borrado de mi cuenta por email</a>
 
   <h2>Qué se elimina</h2>
-  <p class="muted">
-    <!-- TODO: confirmar y detallar exactamente qué datos se borran
-         (cuenta, progreso de juego, estadísticas, etc.), qué se conserva
-         si algo por obligación legal, y el plazo de procesamiento. -->
-    Pendiente de confirmar el detalle exacto de qué datos se eliminan y en
-    qué plazo.
+  <p>
+    El borrado elimina de forma permanente tu cuenta, tu historial de
+    check-ins, tu racha actual y mejor racha, tu saldo de puntos y
+    protectores de racha, los cosméticos desbloqueados, tus relaciones
+    de amistad y códigos de invitación, tu token de notificaciones, y
+    los bloqueos y reportes asociados a tu cuenta. Más detalle en la
+    <a href="/squadfire/privacy/">Política de Privacidad</a>.
   </p>
 </BaseLayout>

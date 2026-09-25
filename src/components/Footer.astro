@@ -15,6 +15,7 @@ const legalProjects = projects.filter((p) => p.legalPages);
     <div class="footer-links">
       {legalProjects.map((p) => (
         <>
+          <a href={`/${p.slug}/terms/`}>{p.name} — Terms of Use</a>
           <a href={`/${p.slug}/privacy/`}>{p.name} — Privacy Policy</a>
           <a href={`/${p.slug}/delete-account/`}>{p.name} — Delete my account</a>
         </>

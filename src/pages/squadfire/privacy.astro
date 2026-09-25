@@ -3,95 +3,204 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 ---
 <BaseLayout title="Privacy Policy — Squadfire" description="Política de privacidad de Squadfire">
   <h1>Privacy Policy — Squadfire</h1>
-  <p class="muted">Última actualización: 22 de septiembre de 2026.</p>
+  <p class="muted">Última actualización: 25 de septiembre de 2026.</p>
 
   <p>
-    Squadfire es desarrollada y operada por un desarrollador individual
-    (particular, sin empresa formalmente constituida todavía) bajo el nombre
-    "Little Monge Studios", con sede en España. Puedes contactarnos en
-    <a href="mailto:team@littlemongestudios.com">team@littlemongestudios.com</a>
-    para cualquier duda sobre esta política o sobre tus datos.
+    Esta política describe qué datos recoge Squadfire ("la app"), por
+    qué, y cómo puedes solicitar que se eliminen. Está redactada para
+    coincidir exactamente con lo que hace el código de la app — no es
+    una plantilla genérica.
   </p>
 
-  <h2>Qué datos recogemos</h2>
-  <p><strong>Cuenta.</strong> Por defecto, Squadfire crea una cuenta anónima
-  al empezar a usar la app. Puedes, opcionalmente, vincular tu cuenta con
-  Google Sign-In; en ese caso recibimos el email y el nombre asociados a tu
-  cuenta de Google.</p>
-  <p><strong>Nombre de usuario.</strong> El username que elijas libremente
-  dentro de la app, independiente del nombre de tu cuenta de Google.</p>
-  <p><strong>Datos de progreso.</strong> Racha actual, mejor racha, historial
-  de check-ins con fecha, cosméticos desbloqueados y equipados, relaciones de
-  amistad y códigos de invitación, y tu posición en el leaderboard.</p>
-  <p><strong>Eventos de uso interno.</strong> Registramos eventos como
-  apertura de la app, check-ins, uso de streak-freeze, desbloqueo de
-  cosméticos, invitaciones enviadas y vinculación con Google. Estos eventos
-  se almacenan en nuestra propia base de datos (Supabase), no en un servicio
-  externo de analítica de terceros.</p>
-  <p class="muted">No recogemos identificadores de dispositivo propios más
-  allá de lo que los servicios de terceros listados abajo puedan recoger
-  según sus propias políticas.</p>
+  <h2>Quién está detrás de esto</h2>
+  <p>
+    Squadfire lo desarrolla un desarrollador individual, que opera como
+    "Little Monge Studios" (no es una empresa formalmente constituida),
+    con sede en España. Contacto:
+    <a href="mailto:team@littlemongestudios.com">team@littlemongestudios.com</a>.
+  </p>
 
-  <h2>Con quién compartimos datos</h2>
-  <p>Usamos los siguientes proveedores para operar Squadfire. Cada uno
-  procesa datos según su propia política de privacidad:</p>
+  <h2>No hace falta cuenta; el inicio de sesión con Google es opcional</h2>
+  <p>
+    Cuando abres la app por primera vez, se crea una <strong>cuenta
+    anónima</strong> — un identificador aleatorio sin ningún dato
+    personal asociado — para que se guarden tu racha y tus ajustes.
+    Eliges un nombre de usuario al momento (nunca tu nombre real, y
+    nunca tomado de ningún otro sitio).
+  </p>
+  <p>
+    ⚠️ Como una cuenta anónima está ligada a esta instalación, <strong>si
+    desinstalas la app o borras sus datos sin haber iniciado sesión
+    antes, tu racha no se puede recuperar.</strong>
+  </p>
+  <p>
+    Puedes, opcionalmente, vincular una cuenta de Google desde Ajustes
+    para que tu progreso sobreviva a una reinstalación o a un cambio de
+    teléfono. Vincular mantiene la misma cuenta (misma racha, cosméticos
+    y amigos) — no crea una cuenta nueva. Si vinculas Google, guardamos
+    el email de tu cuenta de Google solo para mostrártelo de vuelta en
+    Ajustes como confirmación de que está vinculada; no lo usamos para
+    nada más y nunca se lo mostramos a otros usuarios.
+  </p>
+
+  <h2>Qué guardamos</h2>
+  <p>Ligado al id de tu cuenta, en nuestra base de datos (alojada en Supabase, región UE):</p>
   <ul>
+    <li>El nombre de usuario que elegiste (o el generado automáticamente, p. ej. "Player a1b2c3d4", si no lo has cambiado) — se muestra en el ranking y a tus amigos.</li>
+    <li>El email de tu cuenta de Google, solo si decidiste vincular una (ver arriba).</li>
+    <li>Tus fechas de check-in diario, tu racha actual y tu mejor racha. Esas mismas fechas son las que revelan partes de la ilustración del puzzle de cada mes y desbloquean stickers en la Galería — no se recoge ningún dato aparte para eso, se deriva de tus check-ins.</li>
+    <li>Tu saldo de protectores de racha (streak-freeze) y tu historial de compras (ver "Compras" más abajo).</li>
+    <li>Tu saldo de puntos (ganados con check-ins y meses completados) y qué artículos cosméticos has comprado con puntos en la Tienda.</li>
+    <li>Si completas un mes de calendario sin fallar ningún día, el resultado del giro de la ruleta de bonus de ese mes (el multiplicador y los puntos de bonus obtenidos).</li>
+    <li>Si añades amigos: los id de cuenta de las personas con las que estás conectado y sus nombres de usuario, y cualquier código de invitación que generes (caduca automáticamente). Si alguien se registró usando tu código de invitación, lo registramos para poder acreditar la recompensa de referido.</li>
+    <li>Tus elecciones de perfil público: el avatar que elegiste (una de las ilustraciones prediseñadas de la app — <strong>no puedes subir una foto</strong>) y el marco de perfil, color de nombre y título que llevas equipados (ver "Qué pueden ver otros jugadores" más abajo).</li>
+    <li>Un token de notificaciones push por cada teléfono en el que hayas activado las notificaciones (más la plataforma, Android o iOS, y el idioma de la app, para que el aviso de un amigo te llegue en tu idioma) — se usa únicamente para entregarte el toque de aviso ("poke") de un amigo. Se borra cuando eliminas tu cuenta, y automáticamente cuando el servicio de notificaciones informa de que ya no es válido (p. ej. si desinstalaste la app).</li>
+    <li>Las personas que has bloqueado, y los reportes que has enviado (a quién reportaste, el motivo que elegiste, el texto opcional que escribiste, y cuándo). Los reportes sobre ti también se guardan, con el id de cuenta de quien reporta, para poder revisarlos.</li>
+    <li>Qué versión de los Términos de Uso aceptaste, y cuándo.</li>
+  </ul>
+  <p>
+    <strong>No</strong> recogemos tu nombre real, tu teléfono, tu
+    ubicación precisa, tus contactos, tus fotos, ni ningún documento de
+    identidad oficial. Guardar una ilustración mensual completada en tu
+    galería solo necesita permiso para <em>añadir</em> una imagen — la
+    app nunca lee tus fotos.
+  </p>
+
+  <h2>Qué pueden ver otros jugadores</h2>
+  <p>
+    Cualquiera que use Squadfire puede ver, junto a tu nombre de
+    usuario en los rankings y en tu perfil público: tu avatar, marco de
+    perfil, color de nombre y título, tu racha actual y tu mejor racha,
+    tu número de check-ins en el mes en curso (ranking de temporada), y
+    qué stickers has desbloqueado. Nada más — ni tu email de Google, ni
+    tu lista de amigos, ni tus puntos, ni tus compras, ni tus fechas de
+    check-in.
+  </p>
+  <p>
+    Cuando compartes una imagen (tu racha, el puzzle mensual, una
+    ilustración o tus stickers), incluye tu código de invitación, un
+    código QR y un enlace para descargar la app, para que quien la
+    reciba pueda añadirte como amigo. Tú eliges dónde compartirla;
+    nosotros no la vemos.
+  </p>
+
+  <h2>Bloquear y reportar</h2>
+  <p>
+    Puedes bloquear a cualquier jugador desde su perfil: dejáis de
+    veros mutuamente en amigos y rankings, no puede enviarte avisos, y
+    se elimina cualquier amistad entre vosotros. Puedes desbloquearlo
+    desde Ajustes.
+  </p>
+  <p>
+    También puedes reportar a un jugador (nombre de usuario ofensivo,
+    acoso, spam u otros motivos). Los reportes solo los vemos nosotros,
+    se revisan manualmente, y se usan únicamente para mantener la app
+    segura — por ejemplo, restableciendo un nombre de usuario ofensivo.
+    No le decimos al jugador reportado quién lo reportó. Los nombres de
+    usuario también se comprueban automáticamente contra una lista de
+    palabras ofensivas al elegirlos.
+  </p>
+
+  <h2>Analítica de uso de la app</h2>
+  <p>
+    Registramos un pequeño conjunto de eventos dentro de la app —
+    ligados al id de tu cuenta, en la misma base de datos que todo lo
+    anterior, <strong>nunca enviados a un servicio de analítica de
+    terceros</strong>: aperturas de la app, check-ins completados,
+    rachas perdidas, protectores de racha usados, cosméticos
+    desbloqueados, pulsaciones en los botones de compartir y descargar
+    ilustración (y qué tipo de contenido se compartió), uso de una
+    invitación de amigo, vinculación de una cuenta de Google, avisos
+    ("pokes") enviados (y por qué no se pudo entregar alguno, p. ej. el
+    amigo tiene las notificaciones apagadas), perfiles públicos
+    visitados, cambios de avatar, bloqueos, reportes, y la aceptación
+    de los Términos de Uso. Esto nos dice qué partes de la app se usan
+    realmente, nada más (sin grabación de sesión, sin ubicación, sin
+    huella digital del dispositivo más allá de lo que ya identifica el
+    id de tu cuenta).
+  </p>
+
+  <h2>Notificaciones</h2>
+  <p>La app puede enviarte dos tipos de notificación, ambas opcionales (requieren permiso del dispositivo):</p>
+  <ul>
+    <li>Un recordatorio local si aún no has hecho check-in, programado enteramente en tu dispositivo — no se nos envía ningún dato sobre esto ni a nosotros ni a nadie.</li>
     <li>
-      <strong>Supabase</strong> — backend, autenticación y base de datos.
-      (<a href="https://supabase.com/privacy" target="_blank" rel="noopener noreferrer">Política de privacidad</a>)
-    </li>
-    <li>
-      <strong>Google AdMob</strong> — anuncios recompensados dentro de la app.
-      (<a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Política de privacidad de Google</a>)
-    </li>
-    <li>
-      <strong>Google Play Billing</strong> — procesamiento de la compra del
-      streak-freeze.
-      (<a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Política de privacidad de Google</a>)
-    </li>
-    <li>
-      <strong>Google Sign-In</strong> — inicio de sesión opcional con tu
-      cuenta de Google.
-      (<a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Política de privacidad de Google</a>)
-    </li>
-    <li>
-      <strong>Sentry</strong> — registro de errores y fallos de la
-      aplicación.
-      (<a href="https://sentry.io/privacy/" target="_blank" rel="noopener noreferrer">Política de privacidad</a>)
+      Un aviso ("poke") de un amigo cuando aún no has hecho check-in
+      hoy — esta sí es una notificación push real, enrutada a través
+      del servicio push de Expo usando el token de dispositivo
+      mencionado arriba y, desde ahí, entregada por <strong>Firebase
+      Cloud Messaging (Google)</strong> en Android o Apple Push
+      Notification service en iOS. Esos servicios reciben el token del
+      dispositivo y el texto de la notificación ("&lt;amigo&gt; te ha
+      avisado"), según la
+      <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">política de privacidad de Google</a>
+      y la de Apple. El amigo nunca ve tu token; si tienes las
+      notificaciones apagadas, se le informa de que el aviso no pudo
+      llegarte.
     </li>
   </ul>
+  <p>
+    La app pide permiso de notificaciones solo después de tu primer
+    check-in o tu primer amigo, explicando antes por qué. Puedes activar
+    o desactivar las notificaciones en cualquier momento desde los
+    ajustes de tu teléfono (en Ajustes dentro de la app se explica
+    cómo).
+  </p>
+
+  <h2>Publicidad (AdMob)</h2>
+  <p>
+    Ver un anuncio de vídeo corto te permite ganar un protector de
+    racha. Los anuncios los sirve Google AdMob, que — de forma
+    independiente a nosotros — puede recoger identificadores de
+    dispositivo y de publicidad para servir y medir anuncios, según la
+    <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">propia política de privacidad de Google</a>.
+    En iOS verás el aviso de App Tracking Transparency de Apple antes
+    de que se use cualquier identificador relacionado con seguimiento;
+    puedes rechazarlo y seguir usando la app (simplemente no podrás ver
+    un anuncio recompensado para conseguir un protector hasta que lo
+    permitas, o puedes comprar un pack de protectores en su lugar).
+  </p>
+
+  <h2>Compras (compras dentro de la app)</h2>
+  <p>
+    Si compras un pack de protectores de racha, la compra la gestiona
+    íntegramente la Apple App Store o Google Play — <strong>nunca
+    vemos ni guardamos los datos de tu tarjeta.</strong> Solo guardamos
+    el id de transacción de la tienda (para acreditar tus protectores y
+    evitar que se te cobre dos veces por la misma compra), qué
+    producto compraste, y cuándo.
+  </p>
+
+  <h2>Borrado de datos</h2>
+  <p>
+    Puedes eliminar tu cuenta y todo lo asociado a ella de forma
+    permanente, en cualquier momento, desde <strong>Perfil → Ajustes →
+    Zona de peligro → Eliminar mi cuenta</strong> — es inmediato y no se
+    puede deshacer. Si has perdido el acceso a la app, consulta cómo
+    solicitar el borrado por email en nuestra
+    <a href="/squadfire/delete-account/">página de borrado de cuenta</a>.
+  </p>
+
+  <h2>Términos de Uso</h2>
+  <p>
+    Usar las funciones sociales de Squadfire (nombre de usuario,
+    amigos, rankings, perfil público) requiere aceptar los
+    <a href="/squadfire/terms/">Términos de Uso</a>, que explican qué
+    está permitido en los nombres de usuario y cómo se gestionan los
+    reportes.
+  </p>
 
   <h2>Menores de edad</h2>
-  <p>La edad mínima para usar Squadfire es de 13 años. Squadfire no está
-  dirigida a menores de 13 años y no recogemos conscientemente datos de
-  menores de esa edad.</p>
-
-  <h2>Borrado de tu cuenta</h2>
-  <p>Puedes solicitar el borrado completo de tu cuenta de dos formas:</p>
-  <ul>
-    <li>Directamente desde la app, en <strong>Ajustes → Delete my
-    account</strong>.</li>
-    <li>Escribiendo a <a href="mailto:team@littlemongestudios.com">team@littlemongestudios.com</a>.
-    También puedes ver los detalles en la página de
-    <a href="/squadfire/delete-account/">borrado de cuenta</a>.</li>
-  </ul>
-  <p>El borrado elimina de forma permanente tu cuenta, tu historial de
-  check-ins, tus rachas, tus cosméticos desbloqueados y tus relaciones de
-  amistad. El plazo de procesamiento es de hasta 30 días desde la
-  solicitud.</p>
+  <p>
+    Squadfire no está dirigida a menores de 13 años (o la edad
+    relevante en tu país) y no recogemos conscientemente datos de
+    menores de esa edad.
+  </p>
 
   <h2>Cambios a esta política</h2>
-  <p>Podemos actualizar esta política a medida que Squadfire cambie.
-  Publicaremos cualquier cambio en esta misma página con la fecha de
-  actualización.</p>
-
-  <h2>Nota</h2>
-  <p class="muted">
-    Este texto es un borrador razonable redactado a partir de la
-    información confirmada por el desarrollador y no constituye
-    asesoramiento legal. Al operar como particular sin entidad legal
-    constituida, no se incluye una razón social, domicilio fiscal ni
-    identificación fiscal formal. Se revisará antes de considerarse
-    definitivo y vinculante.
+  <p>
+    Si esta política cambia, la fecha de "Última actualización" de
+    arriba también cambiará. Seguir usando la app después de un cambio
+    implica que aceptas la política actualizada.
   </p>
 </BaseLayout>
