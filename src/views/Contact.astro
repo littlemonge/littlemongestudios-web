@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getLangFromUrl, ui } from '../i18n/ui.js';
+
+const lang = getLangFromUrl(Astro.url);
+const t = ui[lang].contact;
+---
+<BaseLayout title={t.title} description={t.description}>
+  <h1>{t.title}</h1>
+  <p>
+    {t.intro}
+    <a href="mailto:team@littlemongestudios.com">team@littlemongestudios.com</a>.
+  </p>
+
+  <h2>{t.social}</h2>
+  <p class="muted">{t.socialSoon}</p>
+</BaseLayout>

@@ -1,0 +1,45 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+import { projects } from '../data/projects.js';
+import heroImage from '../assets/hero-sunrise.png';
+import { getLangFromUrl, localePath, ui } from '../i18n/ui.js';
+
+const lang = getLangFromUrl(Astro.url);
+const t = ui[lang].home;
+const squadfire = projects.find((p) => p.slug === 'squadfire');
+---
+<BaseLayout title={t.title} description={t.description} bleed>
+  <div class="hero">
+    <Image src={heroImage} alt="" width={1024} height={1024} quality={70} />
+    <div class="hero-content">
+      <h1>Little Monge<br />Studios</h1>
+      <p>{t.heroText}</p>
+    </div>
+    <svg class="hero-wave" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0,42 C240,92 480,4 720,32 C960,60 1200,10 1440,46 L1440,90 L0,90 Z" fill="#faf7f0"></path>
+    </svg>
+  </div>
+
+  <div class="projects-section">
+    <div class="inner">
+      <div class="eyebrow">{t.eyebrow}</div>
+      <div class="section-title">{t.sectionTitle}</div>
+
+      <div class="squadfire-card">
+        <div class="sf-copy">
+          <div class="sf-title">{squadfire.name}</div>
+          <p>{squadfire.tagline[lang]}. {squadfire.blurb[lang]}</p>
+          <div class="sf-actions">
+            <div class="badge-wrap">
+              <img src={`/images/google-play-badge-${lang}.png`} alt={t.badgeAlt} />
+              <span class="badge-label">{t.badgeLabel}</span>
+            </div>
+            <a class="sf-link" href={localePath(lang, `/${squadfire.slug}/`)}>{t.viewLabel}</a>
+          </div>
+        </div>
+        <div class="sf-art-placeholder">{t.artPlaceholder}</div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

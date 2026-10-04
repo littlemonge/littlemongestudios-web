@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const subject = encodeURIComponent('Squadfire — Eliminar mi cuenta');
+const body = encodeURIComponent(
+  'Hola,\n\nQuiero eliminar mi cuenta de Squadfire y todos sus datos.\n\nNombre de usuario: \nCódigo de invitación (si aún lo tengo): \n\nGracias.'
+);
+const mailtoHref = `mailto:team@littlemongestudios.com?subject=${subject}&body=${body}`;
+---
+<BaseLayout
+  title="Squadfire — Elimina tu cuenta"
+  description="Cómo eliminar tu cuenta y tus datos de Squadfire"
+>
+  <h1>Squadfire — Elimina tu cuenta</h1>
+  <p class="muted">Última actualización: 2026-10-03</p>
+
+  <p class="translation-note">
+    Esta página es una traducción de la
+    <a href="/squadfire/delete-account/">versión en inglés</a>, que prevalece
+    en caso de discrepancia.
+  </p>
+
+  <p>
+    Squadfire lo desarrolla un desarrollador individual que opera como
+    «Little Monge Studios» (España).
+  </p>
+
+  <h2>Opción 1 — eliminarla desde la app (lo más rápido)</h2>
+  <ol>
+    <li>Abre Squadfire y ve a <strong>Perfil → Ajustes ⚙️</strong>.</li>
+    <li>Desplázate hacia abajo y pulsa <strong>Eliminar mi cuenta</strong>.</li>
+    <li>Confirma — el borrado es inmediato y no se puede deshacer.</li>
+  </ol>
+
+  <h2>Opción 2 — sin acceso a la app</h2>
+  <p>
+    Si has perdido el acceso a la app (la desinstalaste, cambiaste de
+    teléfono, etc.), escribe a
+    <a href="mailto:team@littlemongestudios.com">team@littlemongestudios.com</a>
+    desde cualquier dirección pidiendo que eliminemos tu cuenta de
+    Squadfire, e incluye tu nombre de usuario y, si aún lo tienes, tu
+    código de invitación (Perfil → tu código de invitación) para que
+    podamos encontrar la cuenta correcta. Te confirmaremos cuando esté
+    eliminada, en un plazo de 30 días.
+  </p>
+
+  <a class="button" href={mailtoHref}>Solicitar el borrado por email</a>
+
+  <h2>Qué se elimina</h2>
+  <p>Al eliminar tu cuenta se borra, de forma inmediata y permanente:</p>
+  <ul>
+    <li>Tu nombre de usuario, avatar y estilo de perfil, y el identificador de tu cuenta</li>
+    <li>Tu inicio de sesión, incluida la cuenta de Google vinculada</li>
+    <li>Tu historial de check-ins, tu racha actual y mejor racha, y tu zona horaria</li>
+    <li>Tus protectores de racha y tus registros de compra</li>
+    <li>Tus puntos, los cosméticos que desbloqueaste o compraste, los logros y los resultados de la ruleta de bonus mensual</li>
+    <li>Tus objetivos de racha y tus apuestas de racha</li>
+    <li>Tus amigos, tu código de invitación y tu pertenencia a escuadrones (los escuadrones que creaste pasan a otro miembro; si no queda nadie, se eliminan)</li>
+    <li>Tus ajustes de notificaciones y los tokens push de tus dispositivos</li>
+    <li>Las personas que bloqueaste y los reportes que enviaste</li>
+    <li>Los eventos de uso de la app asociados a tu cuenta</li>
+  </ul>
+  <p>
+    Esto no se puede deshacer. Squadfire no mantiene un periodo de
+    recuperación. Las copias de seguridad cifradas de nuestro proveedor
+    de alojamiento caducan automáticamente pasado un tiempo limitado.
+  </p>
+</BaseLayout>

@@ -1,0 +1,284 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Squadfire — Política de Privacidad" description="Política de privacidad de Squadfire, un juego de Little Monge Studios">
+  <h1>Squadfire — Política de Privacidad</h1>
+  <p class="muted">Última actualización: 2026-10-03</p>
+
+  <p class="translation-note">
+    Esta página es una traducción de la
+    <a href="/squadfire/privacy/">versión en inglés</a>, que prevalece en
+    caso de discrepancia.
+  </p>
+
+  <p>
+    Esta política describe qué datos recoge Squadfire («la app»), por
+    qué, con quién se comparten y cómo puedes acceder a ellos o
+    eliminarlos. Está redactada para coincidir exactamente con lo que
+    hace el código de la app — no es una plantilla genérica.
+  </p>
+
+  <h2>Quién es el responsable de tus datos</h2>
+  <p>
+    Squadfire lo desarrolla un desarrollador individual (una persona
+    física, no una empresa constituida) que opera como «Little Monge
+    Studios», con sede en España. Contacto:
+    <a href="mailto:team@littlemongestudios.com">team@littlemongestudios.com</a>.
+    Esta persona es la responsable del tratamiento según el Reglamento
+    General de Protección de Datos (RGPD) de la UE.
+  </p>
+
+  <h2>No hace falta cuenta; iniciar sesión con Google es opcional</h2>
+  <p>
+    Cuando abres la app por primera vez, se crea una <strong>cuenta
+    anónima</strong> — un identificador aleatorio sin ningún dato
+    personal asociado — para que se guarden tu racha y tus ajustes.
+    Eliges un nombre de usuario al momento (nunca tu nombre real, y
+    nunca tomado de ningún otro sitio).
+  </p>
+  <p>
+    ⚠️ Como una cuenta anónima está ligada a esta instalación, <strong>si
+    desinstalas la app o borras sus datos sin haber iniciado sesión
+    antes, tu racha no se puede recuperar.</strong>
+  </p>
+  <p>
+    Puedes, opcionalmente, vincular una cuenta de Google desde Ajustes
+    para que tu progreso sobreviva a una reinstalación o a un cambio de
+    teléfono. Vincular mantiene la misma cuenta (misma racha,
+    cosméticos, amigos y escuadrones). Si vinculas Google, guardamos el
+    email de tu cuenta de Google solo para mostrártelo de vuelta en
+    Ajustes como confirmación de que está vinculada; nunca lo usamos
+    para nada más y nunca se lo mostramos a otros usuarios.
+  </p>
+  <p>
+    En un teléfono nuevo o tras reinstalar, puedes volver a esa cuenta
+    con <strong>Continuar con Google</strong>. Si ya habías empezado a
+    jugar de forma anónima en ese teléfono, la app te pregunta antes de
+    cambiar, y esa cuenta anónima y sus datos se eliminan — el progreso
+    no se puede fusionar entre dos cuentas.
+  </p>
+
+  <h2>Qué guardamos</h2>
+  <p>Ligado al id de tu cuenta, en nuestra base de datos (alojada en Supabase, región UE — Irlanda):</p>
+  <ul>
+    <li><strong>Perfil:</strong> el nombre de usuario que elegiste (o el generado automáticamente, «Player a1b2c3d4»), tu avatar (una de las ilustraciones prediseñadas de la app — no puedes subir una foto), y el marco de perfil, el estilo de nombre y el título que llevas equipados.</li>
+    <li><strong>Email de Google</strong>, solo si vinculaste Google (ver arriba).</li>
+    <li><strong>Check-ins y rachas:</strong> las fechas en que hiciste check-in, tu racha actual y tu mejor racha, tu saldo de protectores de racha y cuándo usaste uno. El puzzle mensual, los stickers y los logros se calculan a partir de estas fechas — no se registra nada adicional para ellos.</li>
+    <li><strong>Zona horaria:</strong> el nombre de la zona horaria de tu teléfono (por ejemplo «Europe/Madrid»), para que un check-in cuente para tu día de calendario, más un breve historial de cuándo cambió (para limitar abusos al viajar). No la usamos para localizarte.</li>
+    <li><strong>Puntos y Tienda:</strong> tu saldo de puntos y cómo los ganaste o gastaste (check-ins, logros, meses completados, objetivos, hitos de escuadrón, apuestas de racha), y los artículos cosméticos que compraste con puntos. Los puntos son una moneda dentro de la app sin valor monetario.</li>
+    <li><strong>Objetivo de racha:</strong> el objetivo que elegiste (7, 14 o 30 días), cuándo, y cuándo lo alcanzaste.</li>
+    <li><strong>Apuesta de racha:</strong> cuando apuestas puntos a mantener tu racha durante una semana, las fechas que cubre y si ganaste. Depende solo de tus propios check-ins — no hay azar ni dinero real.</li>
+    <li><strong>Ruleta de bonus mensual:</strong> por cada mes que completaste, el multiplicador que obtuviste y los puntos de bonus.</li>
+    <li><strong>Amigos e invitaciones:</strong> con quién estás conectado, cualquier código de invitación que generes (caduca) y, si alguien se unió con tu código, ese vínculo (para acreditar la recompensa de invitación).</li>
+    <li><strong>Escuadrones:</strong> los escuadrones que creaste o a los que te uniste, quién invitó a quién, cuándo entró o salió cada miembro, y los hitos del escuadrón. Las rachas de escuadrón se calculan a partir de las fechas de check-in de los miembros.</li>
+    <li><strong>Notificaciones:</strong> un token push del dispositivo por cada teléfono en el que has permitido notificaciones, con la plataforma y el idioma de la app, y si quieres recibir notificaciones de escuadrón. Se borra cuando eliminas tu cuenta, y automáticamente cuando el servicio push informa de que el token ya no es válido.</li>
+    <li><strong>Seguridad:</strong> las personas que has bloqueado y los reportes que has enviado (a quién, el motivo, el texto opcional y cuándo). Los reportes sobre ti también se guardan, con el id de cuenta de quien reporta, para poder revisarlos.</li>
+    <li><strong>Términos de Uso:</strong> qué versión aceptaste, y cuándo.</li>
+    <li><strong>Logros</strong> que has desbloqueado, y cuándo.</li>
+    <li><strong>Compras:</strong> si compras un pack de protectores de racha, el id de transacción de la tienda, el producto y la fecha (ver «Compras»).</li>
+    <li><strong>Eventos de uso de la app</strong> (ver «Analítica de uso de la app»).</li>
+  </ul>
+  <p>
+    No recogemos tu nombre real, tu teléfono, tu ubicación precisa ni
+    aproximada, tus contactos, tus fotos, ni ningún documento de
+    identidad oficial. Guardar una ilustración mensual completada en tu
+    galería solo necesita permiso para añadir una imagen — la app nunca
+    lee tus fotos.
+  </p>
+
+  <h2>Qué pueden ver otros jugadores</h2>
+  <p>
+    Cualquiera que use Squadfire puede ver, junto a tu nombre de
+    usuario en los rankings y en tu perfil público: tu avatar, marco de
+    perfil, estilo de nombre y título, tu racha actual y tu mejor
+    racha, tu número de check-ins en el mes en curso (ranking de
+    temporada), y qué stickers has desbloqueado. Los miembros de un
+    escuadrón en el que estés también ven si has hecho check-in hoy, y
+    pueden enviarte un aviso. Nada más — ni tu email de Google, ni tu
+    lista de amigos, ni tus puntos, ni tus compras, ni tu zona horaria,
+    ni tus fechas de check-in.
+  </p>
+  <p>
+    Cuando compartes una imagen (tu racha, el puzzle mensual, una
+    ilustración o tus stickers), incluye tu código de invitación, un
+    código QR y un enlace para descargar la app. Tú eliges dónde
+    compartirla; nosotros no la vemos.
+  </p>
+
+  <h2>Bloquear y reportar</h2>
+  <p>
+    Puedes bloquear a cualquier jugador desde su perfil: dejáis de
+    veros mutuamente en amigos y rankings, no puede enviarte avisos, se
+    elimina cualquier amistad entre vosotros y ya no podéis estar en el
+    mismo escuadrón (si compartís uno, uno de los dos lo abandona).
+    Puedes desbloquearlo desde Ajustes.
+  </p>
+  <p>
+    También puedes reportar a un jugador (nombre de usuario ofensivo,
+    acoso, spam u otros motivos). Los reportes solo los vemos nosotros,
+    se revisan manualmente y se usan únicamente para mantener la app
+    segura — por ejemplo, restableciendo un nombre de usuario ofensivo.
+    No le decimos al jugador reportado quién lo reportó. Los nombres de
+    usuario también se comprueban automáticamente contra una lista de
+    palabras ofensivas.
+  </p>
+
+  <h2>Analítica de uso de la app</h2>
+  <p>
+    Registramos un pequeño conjunto de eventos dentro de la app, ligados
+    al id de tu cuenta, en la misma base de datos que todo lo anterior —
+    nunca enviados a un servicio de analítica de terceros: aperturas de
+    la app, check-ins, rachas perdidas, protectores de racha usados,
+    cosméticos desbloqueados, la celebración posterior al check-in
+    mostrada u omitida, compartidos y descargas de ilustraciones /
+    «poner como fondo de pantalla» (y si fallaron, con el mensaje de
+    error y tu versión de Android), invitaciones usadas, vinculación o
+    recuperación de una cuenta de Google, avisos enviados (y por qué no
+    se pudo entregar alguno), perfiles públicos visitados, cambios de
+    avatar, bloqueos, reportes, aceptación de los Términos de Uso,
+    logros, elegir y alcanzar un objetivo de racha, crear un escuadrón y
+    sus hitos, apuestas de racha realizadas, ganadas o perdidas, y el
+    aviso para valorar la app mostrado. Esto nos dice qué partes de la
+    app se usan y qué falla — sin grabación de sesión, sin ubicación,
+    sin perfil publicitario.
+  </p>
+
+  <h2>Informes de fallos (Sentry)</h2>
+  <p>
+    Cuando los informes de fallos están activados, si la app se cierra
+    inesperadamente o encuentra un error, envía un informe técnico a
+    Sentry (Functional Software, Inc.): el error y en qué parte del
+    código ocurrió, la versión de la app, el modelo de tu dispositivo y
+    la versión del sistema operativo, y el entorno. No incluye tu nombre
+    de usuario, email, check-ins ni ningún contenido que hayas creado.
+  </p>
+
+  <h2>Notificaciones</h2>
+  <p>
+    Todas las notificaciones son opcionales y requieren el permiso de tu
+    teléfono. La app lo pide solo después de tu primer check-in o tu
+    primer amigo, explicando antes por qué, y Ajustes tiene un
+    interruptor para cada tipo:
+  </p>
+  <ul>
+    <li>Recordatorio diario, última oportunidad (a las 21:00 si no has hecho check-in y tu racha está en riesgo) y vuelve (el día después de perder una racha, y una vez más tras 3 días sin abrir la app — después nada más). Se programan en tu teléfono: no se envía ningún dato sobre ellas ni a nosotros ni a nadie.</li>
+    <li>
+      Avisos de amigos o miembros del escuadrón, avisos de nuevos
+      amigos, invitaciones a escuadrones y «todos en tu escuadrón menos
+      tú ya han hecho check-in». Son notificaciones push reales enviadas
+      desde nuestro servidor a través del servicio push de Expo y
+      entregadas por Firebase Cloud Messaging (Google) en Android o
+      Apple Push Notification service en iOS. Esos servicios reciben el
+      token del dispositivo y el texto de la notificación, según la
+      <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">política de privacidad de Google</a>
+      y la de
+      <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener noreferrer">Apple</a>.
+    </li>
+  </ul>
+
+  <h2>Publicidad (AdMob)</h2>
+  <p>
+    Ver un anuncio de vídeo corto te permite ganar un protector de
+    racha. Los anuncios los sirve Google AdMob, que — de forma
+    independiente a nosotros — puede recoger identificadores de
+    dispositivo y de publicidad (como el ID de publicidad de Android)
+    para servir y medir anuncios, según la
+    <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">política de privacidad de Google</a>.
+    Puedes restablecer o eliminar tu ID de publicidad en los ajustes de
+    tu teléfono.
+  </p>
+
+  <h2>Valoraciones</h2>
+  <p>
+    Tras un buen momento (una racha de 7 días o un mes perfecto) la app
+    puede pedir a Google Play que muestre su ventana de valoración — como
+    máximo una vez cada pocos meses, y nunca justo después de perder una
+    racha. Google decide si aparece; tu valoración va a Google Play, no
+    a nosotros.
+  </p>
+
+  <h2>Compras (compras dentro de la app)</h2>
+  <p>
+    Si compras un pack de protectores de racha, la compra la gestiona
+    íntegramente Google Play (o la App Store) — <strong>nunca vemos ni
+    guardamos los datos de tu tarjeta.</strong> Solo guardamos el id de
+    transacción de la tienda (para acreditar tus protectores y evitar
+    que se te cobre dos veces), el producto y la fecha.
+  </p>
+
+  <h2>Con quién compartimos datos</h2>
+  <p>
+    No vendemos tus datos ni los compartimos con fines publicitarios.
+    Usamos estos proveedores de servicios, solo para los fines descritos
+    arriba:
+  </p>
+  <ul>
+    <li><strong>Supabase</strong> (base de datos, inicio de sesión y funciones de servidor; región UE).</li>
+    <li><strong>Google</strong> — Sign-In (solo si vinculas Google), Firebase Cloud Messaging (entrega de push), AdMob (anuncios recompensados) y Google Play (compras, valoraciones).</li>
+    <li><strong>Expo</strong> (intermediario de notificaciones push).</li>
+    <li><strong>Sentry</strong> (informes de fallos, cuando están activados).</li>
+  </ul>
+
+  <h2>Base legal y tus derechos (RGPD)</h2>
+  <p>
+    Tratamos tus datos para ofrecerte la app que has pedido (ejecución
+    de un contrato), para mantenerla segura y funcionando (interés
+    legítimo: límites de abuso, reportes, informes de fallos, analítica
+    de uso) y, para notificaciones y anuncios, según los permisos que
+    das en tu teléfono.
+  </p>
+  <p>
+    Puedes pedirnos una copia de tus datos, que los corrijamos, que los
+    eliminemos, que limitemos u os opongas a su tratamiento, o
+    recibirlos en un formato portable, escribiendo a
+    <a href="mailto:team@littlemongestudios.com">team@littlemongestudios.com</a>.
+    Si crees que no hemos tratado bien tus datos, puedes reclamar ante
+    la Agencia Española de Protección de Datos (AEPD,
+    <a href="https://www.aepd.es" target="_blank" rel="noopener noreferrer">www.aepd.es</a>)
+    o ante tu autoridad local.
+  </p>
+
+  <h2>Cuánto tiempo los conservamos</h2>
+  <p>
+    Tus datos se conservan mientras exista tu cuenta. Cuando eliminas tu
+    cuenta, todo lo asociado a ella se borra de inmediato y de forma
+    permanente (nuestra base de datos elimina automáticamente todos los
+    registros relacionados). Los registros eliminados pueden permanecer
+    en las copias de seguridad cifradas de nuestro proveedor de
+    alojamiento durante un tiempo limitado, hasta que esas copias
+    caducan.
+  </p>
+
+  <h2>Eliminación de datos</h2>
+  <p>
+    Puedes eliminar tu cuenta y todo lo asociado a ella de forma
+    permanente, en cualquier momento, desde <strong>Perfil → Ajustes →
+    Eliminar mi cuenta</strong> — es inmediato y no se puede deshacer.
+    Si has perdido el acceso a la app, consulta
+    <a href="/es/squadfire/delete-account/">la página de eliminación de cuenta</a>
+    para solicitar el borrado por email.
+  </p>
+
+  <h2>Términos de Uso</h2>
+  <p>
+    Usar las funciones sociales de Squadfire (nombre de usuario,
+    amigos, escuadrones, rankings, perfil público) requiere aceptar los
+    <a href="/es/squadfire/terms/">Términos de Uso</a>.
+  </p>
+
+  <h2>Menores de edad</h2>
+  <p>
+    Squadfire no está dirigida a menores de 13 años (o la edad mínima
+    para el consentimiento digital en tu país — 14 en España) y no
+    recogemos conscientemente sus datos. Si crees que un menor ha creado
+    una cuenta, escríbenos y la eliminaremos.
+  </p>
+
+  <h2>Cambios en esta política</h2>
+  <p>
+    Si esta política cambia, la fecha de «Última actualización» de
+    arriba también cambia, y si los cambios son importantes la app te lo
+    indicará. Seguir usando la app después de un cambio implica que
+    aceptas la política actualizada.
+  </p>
+</BaseLayout>

@@ -2,15 +2,19 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
+import { getLangFromUrl, stripLang, localePath } from '../i18n/ui.js';
 
 interface Props {
   title: string;
   description?: string;
   bleed?: boolean;
-  lang?: string;
 }
 
-const { title, description = 'Little Monge Studios', bleed = false, lang = 'es' } = Astro.props;
+const { title, description = 'Little Monge Studios', bleed = false } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const basePath = stripLang(Astro.url.pathname);
+const enUrl = new URL(localePath('en', basePath), Astro.site).href;
+const esUrl = new URL(localePath('es', basePath), Astro.site).href;
 ---
 <!doctype html>
 <html lang={lang}>
@@ -19,6 +23,9 @@ const { title, description = 'Little Monge Studios', bleed = false, lang = 'es' 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title} · Little Monge Studios</title>
     <meta name="description" content={description} />
+    <link rel="alternate" hreflang="en" href={enUrl} />
+    <link rel="alternate" hreflang="es" href={esUrl} />
+    <link rel="alternate" hreflang="x-default" href={enUrl} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

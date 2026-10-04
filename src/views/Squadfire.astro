@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { projects } from '../data/projects.js';
+import { getLangFromUrl, ui } from '../i18n/ui.js';
+
+const lang = getLangFromUrl(Astro.url);
+const t = ui[lang].squadfire;
+const project = projects.find((p) => p.slug === 'squadfire');
+const badge = `/images/google-play-badge-${lang}.png`;
+---
+<BaseLayout title={t.title} description={t.description}>
+  <h1>{project.name}</h1>
+  <p class="muted">{project.tagline[lang]}</p>
+
+  <p>{project.blurb[lang]}</p>
+  <p>{t.status}</p>
+
+  <h2>{t.screenshots}</h2>
+  <p class="muted">{t.screenshotsSoon}</p>
+
+  <h2>{t.download}</h2>
+  {project.storeUrl ? (
+    <a href={project.storeUrl}><img src={badge} alt={t.badgeAlt} style="height: 54px;" /></a>
+  ) : (
+    <div class="badge-wrap">
+      <img src={badge} alt={t.badgeAltSoon} />
+      <span class="badge-label">{t.badgeLabel}</span>
+    </div>
+  )}
+</BaseLayout>

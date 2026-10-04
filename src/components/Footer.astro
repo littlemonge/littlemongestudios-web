@@ -1,5 +1,9 @@
 ---
 import { projects } from '../data/projects.js';
+import { getLangFromUrl, localePath, ui } from '../i18n/ui.js';
+
+const lang = getLangFromUrl(Astro.url);
+const t = ui[lang].footer;
 const year = new Date().getFullYear();
 const legalProjects = projects.filter((p) => p.legalPages);
 ---
@@ -15,12 +19,12 @@ const legalProjects = projects.filter((p) => p.legalPages);
     <div class="footer-links">
       {legalProjects.map((p) => (
         <>
-          <a href={`/${p.slug}/terms/`}>{p.name} — Terms of Use</a>
-          <a href={`/${p.slug}/privacy/`}>{p.name} — Privacy Policy</a>
-          <a href={`/${p.slug}/delete-account/`}>{p.name} — Delete your account</a>
+          <a href={localePath(lang, `/${p.slug}/terms/`)}>{p.name} — {t.terms}</a>
+          <a href={localePath(lang, `/${p.slug}/privacy/`)}>{p.name} — {t.privacy}</a>
+          <a href={localePath(lang, `/${p.slug}/delete-account/`)}>{p.name} — {t.delete}</a>
         </>
       ))}
     </div>
-    <div class="social-placeholder">Síguenos pronto — redes sociales en camino</div>
+    <div class="social-placeholder">{t.social}</div>
   </div>
 </footer>
