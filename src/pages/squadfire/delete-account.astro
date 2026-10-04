@@ -1,48 +1,62 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
-const subject = encodeURIComponent('Squadfire — Solicitud de borrado de cuenta');
+const subject = encodeURIComponent('Squadfire — Delete my account');
 const body = encodeURIComponent(
-  'Hola,\n\nQuiero solicitar el borrado de mi cuenta de Squadfire y los datos asociados.\n\nEmail de la cuenta: \nNombre de usuario (si aplica): \n\nGracias.'
+  'Hi,\n\nI would like to delete my Squadfire account and all its data.\n\nUsername: \nInvite code (if I still have it): \n\nThanks.'
 );
 const mailtoHref = `mailto:team@littlemongestudios.com?subject=${subject}&body=${body}`;
 ---
 <BaseLayout
-  title="Delete my account — Squadfire"
-  description="Cómo solicitar el borrado de tu cuenta y datos en Squadfire"
+  title="Squadfire — Delete your account"
+  description="How to delete your Squadfire account and data"
+  lang="en"
 >
-  <h1>Delete my account — Squadfire</h1>
+  <h1>Squadfire — Delete your account</h1>
+  <p class="muted">Last updated: 2026-10-03</p>
+
   <p>
-    Puedes eliminar tu cuenta de Squadfire y todos los datos asociados
-    a ella en cualquier momento, de dos formas:
+    Squadfire is developed by an individual developer operating as
+    "Little Monge Studios" (Spain).
   </p>
 
-  <h2>Desde la app (recomendado)</h2>
-  <p>
-    Ve a <strong>Perfil → Ajustes → Zona de peligro → Eliminar mi
-    cuenta</strong>. El borrado es inmediato y no se puede deshacer.
-  </p>
-
-  <h2>Si has perdido el acceso a la app</h2>
+  <h2>Option 1 — delete it in the app (fastest)</h2>
   <ol>
-    <li>
-      Envíanos un email a
-      <a href="mailto:team@littlemongestudios.com">team@littlemongestudios.com</a>
-      desde la dirección asociada a tu cuenta (o indicando tu nombre de
-      usuario), pidiendo que eliminemos tu cuenta.
-    </li>
-    <li>Verificaremos la solicitud y confirmaremos el borrado por email, en un plazo de hasta 30 días.</li>
+    <li>Open Squadfire and go to <strong>Profile → Settings ⚙️</strong>.</li>
+    <li>Scroll down and tap <strong>Delete my account</strong>.</li>
+    <li>Confirm — deletion happens immediately and can't be undone.</li>
   </ol>
 
-  <a class="button" href={mailtoHref}>Solicitar borrado de mi cuenta por email</a>
-
-  <h2>Qué se elimina</h2>
+  <h2>Option 2 — without access to the app</h2>
   <p>
-    El borrado elimina de forma permanente tu cuenta, tu historial de
-    check-ins, tu racha actual y mejor racha, tu saldo de puntos y
-    protectores de racha, los cosméticos desbloqueados, tus relaciones
-    de amistad y códigos de invitación, tu token de notificaciones, y
-    los bloqueos y reportes asociados a tu cuenta. Más detalle en la
-    <a href="/squadfire/privacy/">Política de Privacidad</a>.
+    If you've lost access to the app (uninstalled it, switched phones,
+    etc.), email
+    <a href="mailto:team@littlemongestudios.com">team@littlemongestudios.com</a>
+    from any address asking to delete your Squadfire account, and
+    include your username and, if you still have it, your invite code
+    (Profile → your invite code) so we can find the right account.
+    We'll confirm once it's deleted, within 30 days.
+  </p>
+
+  <a class="button" href={mailtoHref}>Request deletion by email</a>
+
+  <h2>What gets deleted</h2>
+  <p>Deleting your account removes, immediately and permanently:</p>
+  <ul>
+    <li>Your username, avatar and profile style, and your account identifier</li>
+    <li>Your sign-in, including a linked Google account</li>
+    <li>Your check-in history, current and best streak, and time zone</li>
+    <li>Your streak freezes and purchase records</li>
+    <li>Your points, the cosmetics you unlocked or bought, achievements and monthly bonus-wheel results</li>
+    <li>Your streak goals and streak wagers</li>
+    <li>Your friends, invite code and squad memberships (squads you created pass to another member; if nobody is left, they're deleted)</li>
+    <li>Your notification settings and device push tokens</li>
+    <li>The people you blocked and the reports you sent</li>
+    <li>The in-app usage events tied to your account</li>
+  </ul>
+  <p>
+    This can't be undone. Squadfire doesn't keep a recovery window. Our
+    hosting provider's encrypted backups expire automatically after a
+    limited time.
   </p>
 </BaseLayout>

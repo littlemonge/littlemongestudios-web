@@ -7,12 +7,13 @@ interface Props {
   title: string;
   description?: string;
   bleed?: boolean;
+  lang?: string;
 }
 
-const { title, description = 'Little Monge Studios', bleed = false } = Astro.props;
+const { title, description = 'Little Monge Studios', bleed = false, lang = 'es' } = Astro.props;
 ---
 <!doctype html>
-<html lang="es">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
