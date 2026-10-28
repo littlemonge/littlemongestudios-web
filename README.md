@@ -30,6 +30,21 @@ Genera `dist/`, listo para desplegar en Cloudflare Pages o GitHub Pages
    y marca `legalPages: true` en su entrada de `projects.js` para que
    aparezcan en el footer.
 
+## Sonar (minijuego diario, `/sonar/`)
+
+Juego estático: sin servidor ni base de datos, el progreso vive en `localStorage`
+(`sonar:v1`). La página es `src/views/Sonar.astro` (rutas `/sonar/` y `/es/sonar/`);
+el juego en sí son archivos estáticos en `public/sonar/`:
+
+- `engine.js`: generador diario con semilla. **No tocar semilla ni parámetros**: cambiaría todos los puzles.
+- `sonar.js`: reglas, racha/escudos, estadísticas, texto para compartir e interfaz.
+- `sonar.css`, `og.png` (imagen Open Graph).
+
+La fecha de lanzamiento (puzle #1) está en `LAUNCH` de `public/sonar/sonar.js`.
+Antes de esa fecha la página muestra una cuenta atrás. `/sonar/?debug=1` activa
+herramientas de prueba (otra fecha, reiniciar día, mostrar figura) con un guardado
+aparte (`sonar:v1:debug`). Tests: `npm test`.
+
 ## Estructura
 
 ```
@@ -40,6 +55,7 @@ src/
   pages/
     index.astro               /
     contact.astro              /contact/
+    sonar/index.astro           /sonar/
     squadfire/
       index.astro               /squadfire/
       privacy.astro             /squadfire/privacy/

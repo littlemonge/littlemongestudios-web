@@ -31,6 +31,9 @@ export const ui = {
       badgeAlt: 'Get it on Google Play (coming soon)',
       badgeLabel: 'Coming soon',
       artPlaceholder: 'Space for a screenshot or game art when ready',
+      sonarEyebrow: 'Daily puzzle',
+      sonarBlurb: 'A new hidden figure every day. Ping the board, read the distances and uncover it in as few misses as you can. Free, in your browser, no account.',
+      sonarCta: "Play today's Sonar →",
     },
     squadfire: {
       title: 'Squadfire',
@@ -70,6 +73,9 @@ export const ui = {
       badgeAlt: 'Disponible en Google Play (próximamente)',
       badgeLabel: 'Próximamente',
       artPlaceholder: 'Hueco para captura o arte del juego cuando esté listo',
+      sonarEyebrow: 'Puzle diario',
+      sonarBlurb: 'Una figura oculta nueva cada día. Haz ping en el tablero, lee las distancias y descúbrela con el menor número de fallos. Gratis, en el navegador y sin cuenta. El juego está en inglés.',
+      sonarCta: 'Jugar al Sonar de hoy →',
     },
     squadfire: {
       title: 'Squadfire',

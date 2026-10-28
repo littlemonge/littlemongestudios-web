@@ -8,6 +8,15 @@ import { getLangFromUrl, localePath, ui } from '../i18n/ui.js';
 const lang = getLangFromUrl(Astro.url);
 const t = ui[lang].home;
 const squadfire = projects.find((p) => p.slug === 'squadfire');
+
+// Decorative mini board for the Sonar card: a fixed sample figure and a few pings.
+const sampleFigure = [[2, 3], [3, 3], [3, 4], [4, 4]];
+const samplePings = [[0, 0], [1, 5], [2, 3], [3, 1], [3, 3], [4, 6], [5, 2], [6, 5]];
+const sampleDist = (r, c) => Math.min(...sampleFigure.map(([fr, fc]) => Math.abs(fr - r) + Math.abs(fc - c)));
+const sampleCells = Array.from({ length: 49 }, (_, i) => {
+  const r = Math.floor(i / 7), c = i % 7;
+  return samplePings.some(([pr, pc]) => pr === r && pc === c) ? sampleDist(r, c) : null;
+});
 ---
 <BaseLayout title={t.title} description={t.description} bleed>
   <div class="hero">
@@ -39,6 +48,22 @@ const squadfire = projects.find((p) => p.slug === 'squadfire');
           </div>
         </div>
         <div class="sf-art-placeholder">{t.artPlaceholder}</div>
+      </div>
+
+      <div class="sonar-card">
+        <div class="sn-copy">
+          <div class="eyebrow">{t.sonarEyebrow}</div>
+          <div class="sn-title">Sonar</div>
+          <p>{t.sonarBlurb}</p>
+          <div class="sn-actions">
+            <a class="button" href={localePath(lang, '/sonar/')}>{t.sonarCta}</a>
+          </div>
+        </div>
+        <div class="sn-mini" aria-hidden="true">
+          {sampleCells.map((d) => (
+            <span class={d === null ? 'sn-cell' : `sn-cell sn-d${Math.min(d, 3)}`}>{d ? d : ''}</span>
+          ))}
+        </div>
       </div>
     </div>
   </div>

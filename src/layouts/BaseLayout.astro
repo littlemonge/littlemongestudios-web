@@ -8,9 +8,10 @@ interface Props {
   title: string;
   description?: string;
   bleed?: boolean;
+  bodyClass?: string;
 }
 
-const { title, description = 'Little Monge Studios', bleed = false } = Astro.props;
+const { title, description = 'Little Monge Studios', bleed = false, bodyClass } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const basePath = stripLang(Astro.url.pathname);
 const enUrl = new URL(localePath('en', basePath), Astro.site).href;
@@ -32,8 +33,9 @@ const esUrl = new URL(localePath('es', basePath), Astro.site).href;
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;600;700;800&display=swap"
     />
+    <slot name="head" />
   </head>
-  <body>
+  <body class={bodyClass}>
     <Header />
     <main class={bleed ? 'full-bleed' : undefined}>
       <slot />

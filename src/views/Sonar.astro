@@ -1,0 +1,146 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getLangFromUrl } from '../i18n/ui.js';
+
+const lang = getLangFromUrl(Astro.url);
+const title = 'Sonar — a daily deduction puzzle';
+const description = 'Sonar is a free daily puzzle. Ping the board, read the distances and uncover the hidden figure in as few misses as you can.';
+const pageUrl = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL('/sonar/og.png', Astro.site).href;
+const cols = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
+---
+<BaseLayout title={title} description={description} bleed bodyClass="sonar-page">
+  <Fragment slot="head">
+    <link rel="stylesheet" href="/sonar/sonar.css" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Little Monge Studios" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={pageUrl} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="A 7 by 7 Sonar board with colored distance numbers and green hits." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+  </Fragment>
+
+  <div class="sonar-app">
+    <div class="wrap">
+      <header class="top">
+        <div class="brand">
+          <h1 class="wordmark">SONAR</h1>
+          <span class="tagline">A daily puzzle by Little Monge Studios</span>
+        </div>
+        <div class="issue" id="issue">&nbsp;</div>
+      </header>
+
+      {lang === 'es' && (
+        <p class="translation-note full">Sonar está solo en inglés. El resto del sitio sigue en español.</p>
+      )}
+
+      <noscript><p class="full">Sonar needs JavaScript to run. It has no server and collects nothing.</p></noscript>
+
+      <section class="panel full" id="prelaunch" hidden>
+        <h2>Sonar goes live soon</h2>
+        <p>The first puzzle surfaces on <strong id="launch-date"></strong>, your time.</p>
+        <p class="countdown" id="launch-countdown" role="timer"></p>
+      </section>
+
+      <div class="game-grid full" id="game" hidden>
+        <section class="board-col" aria-label="Today's board">
+          <div class="gauges">
+            <span class="gauge-label">Charges</span>
+            <span class="readout" id="readout">&nbsp;</span>
+            <div class="charges" id="charges" aria-hidden="true"></div>
+          </div>
+          <div class="board-wrap">
+            <div class="coords-x" aria-hidden="true">{cols.map((c) => <span>{c}</span>)}</div>
+            <div class="coords-y" aria-hidden="true">{[1, 2, 3, 4, 5, 6, 7].map((n) => <span>{n}</span>)}</div>
+            <div class="board-frame">
+              <div class="board" id="board" role="group" aria-label="Sonar board, 7 by 7. Arrow keys move between cells."></div>
+            </div>
+          </div>
+          <div class="controls">
+            <div class="mode" role="group" aria-label="Tap mode">
+              <button type="button" id="mode-ping" aria-pressed="true">Ping</button>
+              <button type="button" id="mode-mark" aria-pressed="false">Mark empty</button>
+            </div>
+            <p class="hint" id="hint">Tap a number to see its ring of possible cells.</p>
+          </div>
+          <ul class="legend" aria-label="Colour key">
+            <li><span class="sw sw-hit"></span>Hit</li>
+            <li><span class="sw sw-d1"></span>1 step away</li>
+            <li><span class="sw sw-d2"></span>2 steps</li>
+            <li><span class="sw sw-d3"></span>3 or more</li>
+          </ul>
+          <div class="sr-only" id="sr-status" role="status" aria-live="polite"></div>
+        </section>
+
+        <aside class="log">
+          <section class="panel" id="result-panel" hidden aria-label="Today's result">
+            <h2>Today's dive</h2>
+            <p class="result-title" id="result-title"></p>
+            <div class="result-sub" id="result-sub"></div>
+            <pre class="share-box" id="share-box"></pre>
+            <div class="row">
+              <button type="button" class="btn" id="share-btn" hidden>Share</button>
+              <button type="button" class="btn" id="copy-btn">Copy result</button>
+              <span class="countdown muted" id="countdown" role="timer"></span>
+            </div>
+          </section>
+
+          <details class="panel how" id="how" open>
+            <summary><h2>How to play</h2></summary>
+            <ol class="rules">
+              <li>A figure of 5 to 8 connected cells hides under the board.</li>
+              <li>Tap a cell to ping it. The number is how many steps (up, down, left, right) it is from the nearest part of the figure you haven't uncovered yet.</li>
+              <li>A <strong>0</strong> is a hit and uncovers that cell. Numbers already on the board never change.</li>
+              <li>You have 8 charges. Only misses spend one; hits are free. Uncover the whole figure before they run out, in as few misses as you can. Beat today's par.</li>
+              <li>Rule cells out for free with <em>Mark empty</em>, or long-press / right-click a cell.</li>
+            </ol>
+            <p class="small muted">The dashed cell is today's opening ping. Everyone starts with it and it doesn't count as a miss.</p>
+          </details>
+
+          <section class="panel" aria-label="Your record">
+            <h2>Logbook</h2>
+            <div class="stats" id="stats"></div>
+            <div class="shields" id="shields"></div>
+            <div class="dist" id="dist"></div>
+            <p class="small muted" id="storage-note" hidden>Your browser is blocking storage, so progress and streaks won't be kept after you close this page.</p>
+          </section>
+
+          <section class="panel">
+            <h2>This week's chart</h2>
+            <p class="small muted">Every day you solve uncovers one strip. Finish the week to see the whole scene.</p>
+            <div class="mosaic-wrap"><canvas id="mosaic" width="700" height="300" role="img" aria-label="This week's chart"></canvas></div>
+            <div class="week-labels" id="week-labels" aria-hidden="true"></div>
+          </section>
+
+          <details class="debug" id="debug" hidden>
+            <summary>Debug tools</summary>
+            <div class="row">
+              <label for="date-pick" class="small">Play another date</label>
+              <input type="date" id="date-pick" />
+              <button type="button" class="btn ghost" id="today-btn">Today</button>
+            </div>
+            <div class="row">
+              <button type="button" class="btn ghost" id="reset-btn">Reset this day</button>
+              <button type="button" class="btn ghost" id="reveal-btn" aria-pressed="false">Show figure</button>
+              <button type="button" class="btn ghost" id="wipe-btn">Clear debug data</button>
+            </div>
+            <p class="small muted">Debug mode keeps its own save (<code>sonar:v1:debug</code>) and never touches the real record.</p>
+          </details>
+        </aside>
+      </div>
+
+      <p class="foot full">Sonar is a daily puzzle by Little Monge Studios. A new figure surfaces every midnight, your time. Everything runs in your browser; nothing is sent anywhere.</p>
+    </div>
+    <div class="toast" id="toast" hidden></div>
+  </div>
+
+  <script is:inline defer src="/sonar/engine.js"></script>
+  <script is:inline defer src="/sonar/sonar.js"></script>
+</BaseLayout>

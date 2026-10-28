@@ -12,6 +12,7 @@ const basePath = stripLang(Astro.url.pathname);
     <nav>
       <a href={localePath(lang, '/')}>{t.home}</a>
       {projects.map((p) => <a href={localePath(lang, `/${p.slug}/`)}>{p.name}</a>)}
+      <a href={localePath(lang, '/sonar/')}>Sonar</a>
       <a href={localePath(lang, '/contact/')}>{t.contact}</a>
     </nav>
     <div class="lang-switch" role="group" aria-label={t.switchLabel}>
