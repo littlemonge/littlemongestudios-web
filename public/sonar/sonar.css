@@ -15,7 +15,7 @@ body.sonar-page {
   --d2: #3a76a6;
   --d3: #cdc8bb;
   --accent: #d6462a;
-  --mark: #9a958a;
+  --mark: #7d786d;
   --on-color: #ffffff;
   --on-warm: #17181c;
   background: var(--paper);
@@ -36,7 +36,7 @@ body.sonar-page {
     --d2: #5ea6d4;
     --d3: #4a4c54;
     --accent: #ff6a4d;
-    --mark: #6f6c64;
+    --mark: #a09b90;
     --on-color: #14151a;
     color-scheme: dark;
   }
@@ -97,7 +97,11 @@ header.top { display: flex; flex-wrap: wrap; align-items: end; justify-content: 
   font-variant-numeric: tabular-nums; -webkit-tap-highlight-color: transparent; -webkit-touch-callout: none; user-select: none;
   transition: background 0.15s, transform 0.1s;
 }
-.cell:hover:not([aria-disabled="true"]) { background: var(--cell-hover); }
+/* Hover only where a real pointer exists (touch keeps :hover after a tap), and never over a coloured cell. */
+@media (hover: hover) {
+  .cell:not(.dist):not(.hit):not(.ghost):not([aria-disabled="true"]):hover { background: var(--cell-hover); }
+  .cell.dist:hover { filter: brightness(1.1); }
+}
 .cell:active:not([aria-disabled="true"]) { transform: scale(0.96); }
 .cell[aria-disabled="true"] { cursor: default; }
 .cell.dist { color: var(--on-color); box-shadow: none; }
@@ -202,7 +206,6 @@ input[type="date"] { font: inherit; padding: 6px 8px; border-radius: 6px; border
 .toast { position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); max-width: calc(100vw - 32px); text-align: center; background: var(--ink); color: var(--paper); padding: 10px 18px; border-radius: 6px; font-size: 0.9rem; font-weight: 600; z-index: 30; }
 .toast[hidden] { display: none; }
 .foot { font-size: 0.82rem; color: var(--muted); border-top: 1px solid var(--line); padding-top: 14px; margin: 0; }
-.sonar-app .translation-note { margin: 0; }
 
 @media (max-width: 640px) {
   .issue { text-align: left; }

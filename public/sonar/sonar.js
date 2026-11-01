@@ -23,10 +23,86 @@
   const isDateKey = k => typeof k === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(k) && !Number.isNaN(keyToUTC(k)) && addDays(k, 0) === k;
   const puzzleNumber = k => daysBetween(LAUNCH, k) + 1;
   const mondayOf = k => addDays(k, -((new Date(k + 'T12:00:00Z').getUTCDay() + 6) % 7));
-  const WEEKDAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-  const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  const prettyDate = k => `${MONTHS[Number(k.slice(5, 7)) - 1]} ${Number(k.slice(8))}`;
   const plural = (n, one, many) => `${n} ${n === 1 ? one : many}`;
+
+  /* ===== Text =====
+   * The page language comes from <html lang> ('es' on /es/sonar/, English otherwise). It only changes
+   * what is shown: saved games, streaks and puzzles are the same in both languages.
+   */
+  const STR = {
+    en: {
+      weekdays: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+      weekdaysShort: ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'],
+      months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+      dayMonth: (d, mon) => `${mon} ${d}`,
+      miss: ['miss', 'misses'], step: ['step', 'steps'], charge: ['charge', 'charges'], ping: ['ping', 'pings'],
+      game: ['game', 'games'], shield: ['shield', 'shields'], day: ['day', 'days'],
+      verdicts: { perfect: 'Perfect echo', sharp: 'Sharp ears', par: 'On par', found: 'Found it', close: 'Close call', lost: 'Lost signal' },
+      shareUrl: SHARE_URL,
+      shareWon: (n, misses, par) => `Sonar #${n} · ${plural(misses, 'miss', 'misses')} (par ${par})`,
+      shareLost: (n, hits, size) => `Sonar #${n} · Lost signal (${hits}/${size} found)`,
+      away: d => `${plural(d, 'step', 'steps')} away`,
+      notPinged: 'not pinged', openingPing: 'opening ping', hit: 'hit', inFigure: 'part of the figure', markedEmpty: 'marked empty',
+      ringLabel: (d, cell) => `exactly ${plural(d, 'step', 'steps')} from ${cell}`,
+      markedToast: 'Marked as empty. Switch to Mark empty to clear it.',
+      sayWon: (cell, misses, v) => `${cell}: hit. Figure complete with ${plural(misses, 'miss', 'misses')}. ${v}.`,
+      sayLost: (cell, away) => `${cell}: ${away}. No charges left. Lost signal.`,
+      sayHit: (cell, hits, size) => `${cell}: hit. ${hits} of ${size} cells found.`,
+      sayMiss: (cell, away, left) => `${cell}: ${away}. ${plural(left, 'charge', 'charges')} left.`,
+      sayMark: (cell, on) => `${cell} ${on ? 'marked as empty' : 'unmarked'}.`,
+      readout: (left, hits, size, par) => `<b>${left}</b> left · found <b>${hits}/${size}</b> · par <b>${par}</b>`,
+      figureSize: size => `${size}-cell figure`,
+      hintMark: 'Tap cells you have ruled out. Marks are free.',
+      hintRing: d => `Outlined: every cell exactly ${plural(d, 'step', 'steps')} from the selected number.`,
+      hintDefault: 'Tap a number to see its ring of possible cells. Long-press or right-click to mark.',
+      resultWon: (misses, par, pings) => `${plural(misses, 'miss', 'misses')} · par ${par} · ${plural(pings, 'ping', 'pings')}`,
+      resultLost: (hits, size) => `${hits} of ${size} cells found before the charges ran out`,
+      statLabels: ['Played', 'Win %', 'Streak', 'Best streak'],
+      shieldInfo: (n, full, toNext) => `${plural(n, 'shield', 'shields')} · a shield covers one missed or lost day. ${full ? 'Shields full.' : `Next one in ${plural(toNext, 'day', 'days')} of streak.`}`,
+      distTitle: 'Misses per game (8 = lost)',
+      lostTag: ' (lost)',
+      mosaicLabel: n => `This week's chart: ${n} of 7 strips uncovered. Solve each day to uncover its strip.`,
+      copied: 'Result copied',
+      selected: 'Selected. Copy it with Ctrl+C or ⌘C.',
+      nextIn: 'Next Sonar in ',
+    },
+    es: {
+      weekdays: ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'],
+      weekdaysShort: ['LUN', 'MAR', 'MIÉ', 'JUE', 'VIE', 'SÁB', 'DOM'],
+      months: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'],
+      dayMonth: (d, mon) => `${d} ${mon}`,
+      miss: ['fallo', 'fallos'], step: ['paso', 'pasos'], charge: ['carga', 'cargas'], ping: ['ping', 'pings'],
+      game: ['partida', 'partidas'], shield: ['escudo', 'escudos'], day: ['día', 'días'],
+      verdicts: { perfect: 'Eco perfecto', sharp: 'Buen oído', par: 'En el par', found: 'Encontrada', close: 'Por los pelos', lost: 'Señal perdida' },
+      shareUrl: 'littlemongestudios.com/es/sonar',
+      shareWon: (n, misses, par) => `Sonar #${n} · ${plural(misses, 'fallo', 'fallos')} (par ${par})`,
+      shareLost: (n, hits, size) => `Sonar #${n} · Señal perdida (${hits}/${size} encontradas)`,
+      away: d => `a ${plural(d, 'paso', 'pasos')}`,
+      notPinged: 'sin ping', openingPing: 'ping de apertura', hit: 'acierto', inFigure: 'parte de la figura', markedEmpty: 'marcada como vacía',
+      ringLabel: (d, cell) => `exactamente a ${plural(d, 'paso', 'pasos')} de ${cell}`,
+      markedToast: 'Marcada como vacía. Cambia a «Marcar vacía» para quitarla.',
+      sayWon: (cell, misses, v) => `${cell}: acierto. Figura completa con ${plural(misses, 'fallo', 'fallos')}. ${v}.`,
+      sayLost: (cell, away) => `${cell}: ${away}. Sin cargas. Señal perdida.`,
+      sayHit: (cell, hits, size) => `${cell}: acierto. ${hits} de ${size} casillas encontradas.`,
+      sayMiss: (cell, away, left) => `${cell}: ${away}. ${left === 1 ? 'Queda 1 carga' : `Quedan ${left} cargas`}.`,
+      sayMark: (cell, on) => `${cell} ${on ? 'marcada como vacía' : 'desmarcada'}.`,
+      readout: (left, hits, size, par) => `quedan <b>${left}</b> · encontradas <b>${hits}/${size}</b> · par <b>${par}</b>`,
+      figureSize: size => `figura de ${size} casillas`,
+      hintMark: 'Toca las casillas que hayas descartado. Marcar es gratis.',
+      hintRing: d => `Resaltadas: todas las casillas a exactamente ${plural(d, 'paso', 'pasos')} del número seleccionado.`,
+      hintDefault: 'Toca un número para ver su anillo de casillas posibles. Pulsación larga o clic derecho para marcar.',
+      resultWon: (misses, par, pings) => `${plural(misses, 'fallo', 'fallos')} · par ${par} · ${plural(pings, 'ping', 'pings')}`,
+      resultLost: (hits, size) => `${hits} de ${size} casillas encontradas antes de quedarte sin cargas`,
+      statLabels: ['Partidas', '% victorias', 'Racha', 'Mejor racha'],
+      shieldInfo: (n, full, toNext) => `${plural(n, 'escudo', 'escudos')} · un escudo cubre un día perdido o no jugado. ${full ? 'Escudos al máximo.' : `El siguiente, en ${plural(toNext, 'día', 'días')} de racha.`}`,
+      distTitle: 'Fallos por partida (8 = derrota)',
+      lostTag: ' (derrota)',
+      mosaicLabel: n => `La carta de esta semana: ${n} de 7 franjas destapadas. Resuelve cada día para destapar su franja.`,
+      copied: 'Resultado copiado',
+      selected: 'Seleccionado. Cópialo con Ctrl+C o ⌘C.',
+      nextIn: 'Próximo Sonar en ',
+    },
+  };
 
   /* ===== Game rules (pure) ===== */
   const hitsOf = g => g.pings.filter(p => p.d === 0).length;
@@ -46,14 +122,15 @@
     return d;
   }
 
-  function verdict(status, misses, par) {
-    if (status === LOST) return 'Lost signal';
+  function verdict(status, misses, par, lang) {
+    const v = (STR[lang] || STR.en).verdicts;
+    if (status === LOST) return v.lost;
     const diff = misses - par;
-    if (diff <= -2) return 'Perfect echo';
-    if (diff === -1) return 'Sharp ears';
-    if (diff === 0) return 'On par';
-    if (diff <= 2) return 'Found it';
-    return 'Close call';
+    if (diff <= -2) return v.perfect;
+    if (diff === -1) return v.sharp;
+    if (diff === 0) return v.par;
+    if (diff <= 2) return v.found;
+    return v.close;
   }
 
   /* ===== Streak (pure) =====
@@ -109,13 +186,14 @@
   }
 
   // 🟩 hit · 🟨 1 away · 🟦 2 away · ⬜ 3 or more. Never positions, only the order of results.
-  function shareText({ number, status, misses, par, hits, size, pings, streak }) {
+  function shareText({ number, status, misses, par, hits, size, pings, streak, lang }) {
+    const t = STR[lang] || STR.en;
     const squares = pings.map(p => p.d === 0 ? '🟩' : p.d === 1 ? '🟨' : p.d === 2 ? '🟦' : '⬜').join('');
     const flame = streak > 0 ? ` · 🔥${streak}` : '';
     const head = status === WON
-      ? `Sonar #${number} · ${plural(misses, 'miss', 'misses')} (par ${par})${flame}`
-      : `Sonar #${number} · Lost signal (${hits}/${size} found)${flame}`;
-    return `${head}\n${squares}\n${SHARE_URL}`;
+      ? t.shareWon(number, misses, par) + flame
+      : t.shareLost(number, hits, size) + flame;
+    return `${head}\n${squares}\n${t.shareUrl}`;
   }
 
   /* ===== Storage shape ===== */
@@ -147,6 +225,9 @@
    * =================================================================== */
   const DEBUG = new URLSearchParams(location.search).get('debug') === '1';
   const KEY = DEBUG ? STORE_KEY + ':debug' : STORE_KEY; // debug sessions never touch the real record
+  const LANG = document.documentElement.lang === 'es' ? 'es' : 'en';
+  const T = STR[LANG];
+  const prettyDate = k => T.dayMonth(Number(k.slice(8)), T.months[Number(k.slice(5, 7)) - 1]);
   const COLS = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
   const reduceMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
   const $ = id => document.getElementById(id);
@@ -232,7 +313,7 @@
 
   /* ----- actions ----- */
   const cellName = i => { const [r, c] = rc(i); return `${COLS[c]}${r + 1}`; };
-  const stepsText = d => plural(d, 'step', 'steps');
+  const stepsText = d => plural(d, ...T.step);
   const say = msg => { $('sr-status').textContent = ''; setTimeout(() => { $('sr-status').textContent = msg; }, 30); };
 
   function onCell(i) {
@@ -240,7 +321,7 @@
     if (p ? p.d > 0 : i === puzzle.opening) { selected = selected === i ? null : i; render(); return; }
     if (p || game.status !== PLAYING) return;
     if (mode === 'mark') { toggleMark(i); return; }
-    if (game.marks.includes(i)) { shake(i); toast('Marked as empty. Switch to Mark empty to clear it.'); return; }
+    if (game.marks.includes(i)) { shake(i); toast(T.markedToast); return; }
     const d = applyPing(game, puzzle, i);
     if (d === null) return;
     remember();
@@ -250,13 +331,13 @@
     render();
     const left = MAX_MISSES - missesOf(game);
     if (game.status === WON) {
-      say(`${cellName(i)}: hit. Figure complete with ${plural(missesOf(game), 'miss', 'misses')}. ${verdict(WON, missesOf(game), puzzle.par)}.`);
+      say(T.sayWon(cellName(i), missesOf(game), verdict(WON, missesOf(game), puzzle.par, LANG)));
     } else if (game.status === LOST) {
-      say(`${cellName(i)}: ${stepsText(d)} away. No charges left. Lost signal.`);
+      say(T.sayLost(cellName(i), T.away(d)));
     } else if (d === 0) {
-      say(`${cellName(i)}: hit. ${hitsOf(game)} of ${puzzle.size} cells found.`);
+      say(T.sayHit(cellName(i), hitsOf(game), puzzle.size));
     } else {
-      say(`${cellName(i)}: ${stepsText(d)} away. ${plural(left, 'charge', 'charges')} left.`);
+      say(T.sayMiss(cellName(i), T.away(d), left));
     }
     if (game.status !== PLAYING) {
       setTimeout(() => $('result-panel').scrollIntoView({ behavior: reduceMotion() ? 'auto' : 'smooth', block: 'nearest' }), 450);
@@ -269,7 +350,7 @@
     if (at >= 0) game.marks.splice(at, 1); else game.marks.push(i);
     remember();
     render();
-    say(`${cellName(i)} ${at >= 0 ? 'unmarked' : 'marked as empty'}.`);
+    say(T.sayMark(cellName(i), at < 0));
   }
 
   function shake(i) {
@@ -314,30 +395,30 @@
       if (i === opening) {
         c.classList.add('dist', distClass(puzzle.openingDistance), 'opening');
         c.textContent = puzzle.openingDistance;
-        label += `, opening ping, ${stepsText(puzzle.openingDistance)} away`;
+        label += `, ${T.openingPing}, ${T.away(puzzle.openingDistance)}`;
         c.setAttribute('aria-pressed', String(i === selected));
         inert = false;
       } else if (p) {
-        if (p.d === 0) { c.classList.add('hit'); label += ', hit'; }
+        if (p.d === 0) { c.classList.add('hit'); label += `, ${T.hit}`; }
         else {
           c.classList.add('dist', distClass(p.d));
           c.textContent = p.d;
-          label += `, ${stepsText(p.d)} away`;
+          label += `, ${T.away(p.d)}`;
           c.setAttribute('aria-pressed', String(i === selected));
           inert = false;
         }
         if (i === freshCell) c.classList.add('pop');
       } else if ((lost || revealFigure) && puzzle.figure.includes(i)) {
         c.classList.add('ghost');
-        label += ', part of the figure';
+        label += `, ${T.inFigure}`;
       } else if (game.marks.includes(i)) {
         c.classList.add('marked');
-        label += ', marked empty';
+        label += `, ${T.markedEmpty}`;
       } else {
-        label += ', not pinged';
+        label += `, ${T.notPinged}`;
         if (selD !== null && selD > 0 && Math.abs(rc(i)[0] - rc(selected)[0]) + Math.abs(rc(i)[1] - rc(selected)[1]) === selD) {
           c.classList.add('ring');
-          label += `, exactly ${stepsText(selD)} from ${cellName(selected)}`;
+          label += `, ${T.ringLabel(selD, cellName(selected))}`;
         }
       }
       if (i === selected) c.classList.add('selected');
@@ -348,11 +429,9 @@
 
     const misses = missesOf(game), hits = hitsOf(game);
     [...$('charges').children].forEach((el, k) => el.classList.toggle('spent', k >= MAX_MISSES - misses));
-    $('readout').innerHTML = `<b>${MAX_MISSES - misses}</b> left · found <b>${hits}/${puzzle.size}</b> · par <b>${puzzle.par}</b>`;
-    $('issue').innerHTML = `<strong>#${puzzleNumber(dateKey)}</strong> · ${WEEKDAYS[puzzle.weekday]}, ${prettyDate(dateKey)}<br>${puzzle.size}-cell figure`;
-    $('hint').textContent = mode === 'mark' ? 'Tap cells you have ruled out. Marks are free.'
-      : selD > 0 ? `Outlined: every cell exactly ${stepsText(selD)} from the selected number.`
-      : 'Tap a number to see its ring of possible cells. Long-press or right-click to mark.';
+    $('readout').innerHTML = T.readout(MAX_MISSES - misses, hits, puzzle.size, puzzle.par);
+    $('issue').innerHTML = `<strong>#${puzzleNumber(dateKey)}</strong> · ${T.weekdays[puzzle.weekday]}, ${prettyDate(dateKey)}<br>${T.figureSize(puzzle.size)}`;
+    $('hint').textContent = mode === 'mark' ? T.hintMark : selD > 0 ? T.hintRing(selD) : T.hintDefault;
     renderResult(); renderStats(); renderMosaic();
   }
 
@@ -362,28 +441,27 @@
     if (!over) return;
     const misses = missesOf(game);
     const streak = computeStreak(store.days, dateKey).current;
-    $('result-title').textContent = verdict(game.status, misses, puzzle.par);
+    $('result-title').textContent = verdict(game.status, misses, puzzle.par, LANG);
     $('result-sub').textContent = game.status === WON
-      ? `${plural(misses, 'miss', 'misses')} · par ${puzzle.par} · ${plural(game.pings.length, 'ping', 'pings')}`
-      : `${hitsOf(game)} of ${puzzle.size} cells found before the charges ran out`;
+      ? T.resultWon(misses, puzzle.par, game.pings.length)
+      : T.resultLost(hitsOf(game), puzzle.size);
     $('share-box').textContent = shareText({
       number: puzzleNumber(dateKey), status: game.status, misses, par: puzzle.par,
-      hits: hitsOf(game), size: puzzle.size, pings: game.pings, streak,
+      hits: hitsOf(game), size: puzzle.size, pings: game.pings, streak, lang: LANG,
     });
   }
 
   function renderStats() {
     const s = computeStats(store.days, todayKey, MAX_MISSES);
-    const items = [[s.played, 'Played'], [s.winPct, 'Win %'], [s.streak, 'Streak'], [s.best, 'Best streak']];
+    const items = [s.played, s.winPct, s.streak, s.best].map((v, k) => [v, T.statLabels[k]]);
     $('stats').innerHTML = items.map(([v, l]) => `<div class="stat"><b>${v}</b><span>${l}</span></div>`).join('');
     const shield = on => `<svg class="shield${on ? ' on' : ''}" viewBox="0 0 18 20" aria-hidden="true"><path d="M9 1 2 4v6c0 4.5 3 7.6 7 9 4-1.4 7-4.5 7-9V4z"/></svg>`;
     const toNext = SHIELD_EVERY - (s.streak % SHIELD_EVERY);
-    const shieldNote = s.shields >= MAX_SHIELDS ? 'Shields full.' : `Next one in ${plural(toNext, 'day', 'days')} of streak.`;
-    $('shields').innerHTML = `${shield(s.shields > 0)}${shield(s.shields > 1)}<span class="muted small">${plural(s.shields, 'shield', 'shields')} · a shield covers one missed or lost day. ${shieldNote}</span>`;
+    $('shields').innerHTML = `${shield(s.shields > 0)}${shield(s.shields > 1)}<span class="muted small">${T.shieldInfo(s.shields, s.shields >= MAX_SHIELDS, toNext)}</span>`;
     const maxC = Math.max(1, ...s.dist);
     const todayMiss = game.status === PLAYING ? -1 : (game.status === LOST ? MAX_MISSES : missesOf(game));
-    $('dist').innerHTML = '<span class="small muted">Misses per game (8 = lost)</span>' + s.dist.map((c, m) =>
-      `<div class="bar-row"><span>${m}<span class="sr-only"> ${m === 1 ? 'miss' : 'misses'}${m === MAX_MISSES ? ' (lost)' : ''}</span></span><div class="bar${m === todayMiss && dateKey === todayKey ? ' today' : ''}" style="width:${Math.max(6, c / maxC * 100)}%">${c}<span class="sr-only"> ${c === 1 ? 'game' : 'games'}</span></div></div>`).join('');
+    $('dist').innerHTML = `<span class="small muted">${T.distTitle}</span>` + s.dist.map((c, m) =>
+      `<div class="bar-row"><span>${m}<span class="sr-only"> ${m === 1 ? T.miss[0] : T.miss[1]}${m === MAX_MISSES ? T.lostTag : ''}</span></span><div class="bar${m === todayMiss && dateKey === todayKey ? ' today' : ''}" style="width:${Math.max(6, c / maxC * 100)}%">${c}<span class="sr-only"> ${c === 1 ? T.game[0] : T.game[1]}</span></div></div>`).join('');
     $('storage-note').hidden = storageOk;
   }
 
@@ -474,11 +552,11 @@
         for (let y = -sw; y < SCENE_H; y += 10) { ctx.beginPath(); ctx.moveTo(k * sw, y); ctx.lineTo(k * sw + sw, y + sw); ctx.stroke(); }
       }
       ctx.strokeStyle = col.paper; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(k * sw, 0); ctx.lineTo(k * sw, SCENE_H); ctx.stroke();
-      labels.push(`<span class="${dk === dateKey ? 'today' : ''}">${['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'][k]}${solved[k] ? ' ✓' : ''}</span>`);
+      labels.push(`<span class="${dk === dateKey ? 'today' : ''}">${T.weekdaysShort[k]}${solved[k] ? ' ✓' : ''}</span>`);
     });
     $('week-labels').innerHTML = labels.join('');
     const n = solved.filter(Boolean).length;
-    cv.setAttribute('aria-label', `This week's chart: ${n} of 7 strips uncovered. Solve each day to uncover its strip.`);
+    cv.setAttribute('aria-label', T.mosaicLabel(n));
   }
 
   /* ----- controls ----- */
@@ -506,13 +584,13 @@
     const sel = getSelection();
     sel.removeAllRanges();
     sel.addRange(range);
-    toast('Selected. Copy it with Ctrl+C or ⌘C.');
+    toast(T.selected);
   }
   $('copy-btn').addEventListener('click', () => {
     const text = $('share-box').textContent;
     try {
       if (!navigator.clipboard || !navigator.clipboard.writeText) throw new Error('no clipboard');
-      navigator.clipboard.writeText(text).then(() => toast('Result copied'), selectShareText);
+      navigator.clipboard.writeText(text).then(() => toast(T.copied), selectShareText);
     } catch (e) { selectShareText(); }
   });
   if (navigator.share && matchMedia('(pointer: coarse)').matches) {
@@ -540,7 +618,7 @@
       const [y, m, d] = LAUNCH.split('-').map(Number);
       $('launch-countdown').textContent = countdownTo(new Date(y, m - 1, d));
     } else {
-      $('countdown').textContent = 'Next Sonar in ' + countdownTo(new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1));
+      $('countdown').textContent = T.nextIn + countdownTo(new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1));
     }
   }
 
@@ -566,7 +644,7 @@
     $('game').hidden = pre;
     if (pre) {
       const [y, m, d] = LAUNCH.split('-').map(Number);
-      $('launch-date').textContent = `${WEEKDAYS[new Date(Date.UTC(y, m - 1, d, 12)).getUTCDay()]}, ${prettyDate(LAUNCH)}`;
+      $('launch-date').textContent = `${T.weekdays[new Date(Date.UTC(y, m - 1, d, 12)).getUTCDay()]}, ${prettyDate(LAUNCH)}`;
       tick();
       return;
     }

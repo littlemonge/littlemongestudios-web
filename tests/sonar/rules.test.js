@@ -130,3 +130,19 @@ test('a corrupted save is cleaned up instead of breaking the page', () => {
   assert.deepEqual(sanitizeStore('nonsense'), { v: 1, days: {} });
   assert.deepEqual(sanitizeStore(null), { v: 1, days: {} });
 });
+
+test('Spanish verdicts and share text; English stays the default', () => {
+  assert.equal(verdict('won', 3, 3), 'On par');
+  assert.equal(verdict('won', 3, 3, 'es'), 'En el par');
+  assert.equal(verdict('won', 0, 3, 'es'), 'Eco perfecto');
+  assert.equal(verdict('won', 2, 3, 'es'), 'Buen oído');
+  assert.equal(verdict('won', 5, 3, 'es'), 'Encontrada');
+  assert.equal(verdict('won', 6, 3, 'es'), 'Por los pelos');
+  assert.equal(verdict('lost', 8, 3, 'es'), 'Señal perdida');
+  const pings = [2, 1, 0, 0, 3, 1, 0, 0].map((d, i) => ({ cell: i, d }));
+  const base = { number: 12, status: 'won', misses: 4, par: 3, hits: 4, size: 4, pings, streak: 5 };
+  assert.equal(shareText({ ...base, lang: 'es' }), 'Sonar #12 · 4 fallos (par 3) · 🔥5\n🟦🟨🟩🟩⬜🟨🟩🟩\nlittlemongestudios.com/es/sonar');
+  assert.equal(shareText({ ...base, lang: 'es', misses: 1 }).split('\n')[0], 'Sonar #12 · 1 fallo (par 3) · 🔥5');
+  assert.equal(shareText({ ...base, status: 'lost', hits: 2, size: 6, streak: 0, lang: 'es' }).split('\n')[0], 'Sonar #12 · Señal perdida (2/6 encontradas)');
+  assert.equal(shareText(base), shareText({ ...base, lang: 'en' }));
+});
